@@ -10,12 +10,14 @@ router=APIRouter(
 
 def vote(vote:schemas.Vote,db:Session=Depends(database.get_db),current_user:models.User=Depends(oauth2.get_current_user)):
     
+    # Jab post exist he nhi kari ge tu kaise Vote karay oske manage karnay ka code
     post = db.query(models.Post).filter(models.Post.id == vote.post_id).first()
     
-    # Agar post na mile toh custom error de dein
+    # Agar post na mile toh custom error de deingee 
     if not post:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Post with id {vote.post_id} does not exist")
+    
     
     vote_query=db.query(models.Vote).filter(models.Vote.post_id==vote.post_id, models.Vote.user_id==current_user.id)
     found_vote=vote_query.first()
