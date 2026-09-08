@@ -72,7 +72,6 @@ jobs:
       #   - name: Image digest
       #     run: echo ${{ steps.docker_build.outputs.digest }}
 
-      - name: push change to production
 
   deploy:
     runs_on: ubuntu-latest
